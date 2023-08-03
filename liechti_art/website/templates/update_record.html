@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-md-6 offset-md-3">
+    
+    <br>
+    <h1>Eintrag bearbeiten:</h1>
+    <br>
+    <img src="{{ current_record.img.url }}" class="img-fluid rounded" style="width: 50%;">
+    <br>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <br>
+
+        {{ form.as_p }}
+        
+        <br>
+
+        <button type="submit" class="btn btn-success">Speichern</button>
+      </form>
+
+</div>
+
+
+{% endblock %}
+
+

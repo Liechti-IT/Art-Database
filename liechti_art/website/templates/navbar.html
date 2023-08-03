@@ -1,0 +1,31 @@
+<nav class="navbar navbar-dark navbar-expand-lg sticky-top" style="background-color: #2B3035;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">Liechti-ART</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link {% if active_view == 'kunstverzeichnis' %}active{% endif %}" href="{% url 'kunstverzeichnis' %}">Kunstverzeichnis</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if active_view == 'home' %}active{% endif %}" aria-current="page" href="{% url 'home' %}">Letzte Einträge</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if active_view == 'add_record' %}active{% endif %}" href="{% url 'add_record' %}">Hinzufügen</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav col-md-1 mb-2 mb-lg-0">
+            <li  class="nav-item">
+              <a href="{% url 'logout' %}" class="nav-link text-white">Abmelden</a>
+          </li>
+        </ul>
+        <form class="d-flex" method=POST action="{% url 'search' %}" role="search">
+            {% csrf_token %}
+          <input class="form-control me-2" type="search" placeholder="Suchen" aria-label="Search" name="searched">
+          <button class="btn btn-outline-success" type="submit">Suchen</button>
+        </form>
+      </div>
+    </div>
+  </nav>

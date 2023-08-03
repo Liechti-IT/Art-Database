@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>liechti-art</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+
+<body class="bg-dark">
+
+    {% if user.is_authenticated %}
+
+    {% include "navbar.html" %}>
+
+    <div class="container bg-dark text-white">
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+    {% else %}
+
+    <div class="d-flex justify-content-center align-items-center container bg-dark text-white vh-100">
+
+        <div class="card justify-content-center" style="width: 500px; height: 230px;">
+            <div class="card-body">
+              <h5 class="card-title mb-4" style="color:black">Anmelden:</h5>
+              <form method="POST" action="{% url 'home' %}">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                  <input type="text" class="form-control" name="username" placeholder="Benutzername" required>
+                </div>
+                <div class="mb-3">
+                  <input type="password" class="form-control" name="password" placeholder="Passwort" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">Login</button>
+              </form>
+            </div>
+          </div>
+
+
+    </div>
+
+    {% endif %}
+    
+</body>
+</html>

@@ -1,0 +1,26 @@
+version: '3'
+services:
+  web:
+    build: ./
+    command: bash -c "python manage.py collectstatic --noinput && gunicorn liechti_art.wsgi:application --bind 0.0.0.0:8000"
+    expose:
+    - 8000
+    volumes:
+      - db_volume:/app/db
+      - static_volume:/app/static
+      - media_volume:/app/media
+  
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+    depends_on:
+      - web
+
+volumes:
+  static_volume:
+  media_volume:
+  db_volume:

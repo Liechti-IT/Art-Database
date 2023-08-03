@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-md-8 offset-md-2">
+    
+    <br>
+    <h1>Kunstverzeichnis</h1>
+    <br>
+
+    {% if records %}
+
+        {% for record in records %}
+        <div class="card border-none text-bg-dark mb-3" style="max-width: 940px; background-color: #2B3035;">
+            <div class="row g-0">
+            <div class="col-md-4 d-flex align-items-center justify-content-center">
+                <a href="{{ record.img.url }}">
+                    <div style="width: 200px; margin: 5px;">
+                        <img src="{{ record.img.url }}" class="img-fluid rounded-start" style="width: 80%; margin: 5px;">
+                    </div>
+                </a>
+            </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                        <table class="table table-sm table-dark table-striped-columns mb-2" style="width: 100%; background-color: #2B3035;">
+                            <tr style="background-color: #2B3035;">
+                                <td style="background-color: #2B3035;">Name: </td>
+                                <td style="background-color: #2B3035;"><b>{{ record.img_title }}</b></td>
+                            </tr>
+                            <tr>
+                                <td class="pt-0 pb-0" style="background-color: #2B3035;">ID: </td>
+                                <td class="pt-0 pb-0" style="background-color: #2B3035;">{{ record.id }}</td>
+                            </tr>
+                            <tr>
+                                <td class="pt-0 pb-0" style="background-color: #2B3035;">Künstler: </td>
+                                <td class="pt-0 pb-0" style="background-color: #2B3035;">{{ record.artist_name }}</td>
+                            </tr>
+                            <tr>
+                                <td class="pt-0 pb-0" style="background-color: #2B3035;">Art des Bildes: </td>
+                                <td class="pt-0 pb-0" style="background-color: #2B3035;">{{ record.bild_art }}</td>
+                            </tr>
+                            <tr>
+                                <td class="pt-0 pb-0" style="background-color: #2B3035;">Jahrgang: </td>
+                                <td class="pt-0 pb-0" style="background-color: #2B3035;">{{ record.Jahrgang }}</td>
+                            </tr>
+                            <tr>
+                                <td class="pt-0 pb-0" style="background-color: #2B3035;">Grösse: </td>
+                                <td class="pt-0 pb-0" style="background-color: #2B3035;">{{ record.dimensions }}</td>
+                            </tr>
+                            <tr>
+                                <td class="pt-0 pb-0" style="background-color: #2B3035;">Standort: </td>
+                                <td class="pt-0 pb-0" style="background-color: #2B3035;">{{ record.bild_standort }}</td>
+                            </tr>
+                            <tr>
+                                <td class="pt-0 pb-0" style="background-color: #2B3035;">Bemerkung: </td>
+                                <td class="pt-0 pb-0" style="width: 70%; background-color: #2B3035;">{{ record.comment }}</td>
+                            </tr>
+                        </table>
+                        <a href="{% url 'update_record' record.id %}" class="btn btn-secondary float-end btn-sm mb-2 me-4">Bearbeiten</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+        <br>
+        
+        <div class="pagination justify-content-center bg-dark">
+            <ul class="pagination bg-dark">
+                {% if records.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link bg-dark text-white border-secondary" href="?page=1" aria-label="1">
+                            <span aria-hidden="true">Seite 1</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link bg-dark text-white border-secondary" href="?page={{ records.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">zurück</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                <li class="page-item disabled bg-dark text-white">
+                    <span class="page-link">
+                        Seite {{ records.number }} von {{ records.paginator.num_pages }}
+                    </span>
+                </li>
+
+                {% if records.has_next %}
+                    <li class="page-item">
+                        <a class="page-link bg-dark text-white border-secondary" href="?page={{ records.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">weiter</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link bg-dark text-white border-secondary" href="?page={{ records.paginator.num_pages }}" aria-label="Last">
+                            <span aria-hidden="true">letzte Seite</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+{% endblock %}
+
+
